@@ -4,11 +4,11 @@ const { body } = require('koa-req-validation')
 
 router.post('/register',
     body("email").isEmail().build(),
-    body('password').isLength({ min: 8}).build(),
+    body('password').isLength({ min: 8 }).build(),
     userController.registration
 )
-router.post('/login')
-router.post('/logout')
-router.get('/refresh')
+router.post('/login', userController.login)
+router.post('/logout', userController.logout)
+router.get('/refresh', userController.refresh)
 
 module.exports = router

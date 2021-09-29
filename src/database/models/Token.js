@@ -1,4 +1,3 @@
-const { token } = require('morgan')
 const { Sequelize } = require('sequelize')
 const sequelize = require('../sequelize_conf')
 
