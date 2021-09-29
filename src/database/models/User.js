@@ -2,9 +2,9 @@ const { Sequelize } = require('sequelize')
 const sequelize = require('../sequelize_conf')
 
 const User = sequelize.define('user', {
-    name: Sequelize.STRING,
-    email: Sequelize.STRING,
-    password: Sequelize.STRING,
+    name: { type: Sequelize.STRING,  allowNull: false },
+    email: { type: Sequelize.STRING,  allowNull: false },
+    password: { type: Sequelize.STRING,  allowNull: false },
     avatar: Sequelize.STRING,
 })
 
