@@ -40,9 +40,6 @@ class UserService {
 
     async logout(refreshToken) {
         await TokenService.removeToken(refreshToken)
-            .then(res => {
-                return res
-            })
     }
 
     async refresh(refreshToken) {
@@ -53,7 +50,6 @@ class UserService {
 async function generateResponse(user) {
     const userDto = new UserDto(user)
     const tokens = TokenService.generateTokens({ ...userDto })
-    console.log(userDto)
     await TokenService.saveTokens(userDto.id, tokens.refreshToken)
     return { ...tokens, user: userDto }
 }

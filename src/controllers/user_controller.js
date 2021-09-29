@@ -26,9 +26,7 @@ class UserController {
         console.log(refreshToken)
         ctx.cookies.set('refreshToken', '')
         await UserService.logout(refreshToken)
-            .then(res => {
-                return res
-            })
+        ctx.status = 200
     } 
 
     async refresh(req, res, next) {

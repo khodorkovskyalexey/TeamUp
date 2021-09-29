@@ -34,9 +34,6 @@ class TokenService {
 
     async removeToken(refreshToken) {
         await Token.destroy({ where: { refreshToken } })
-            .then(res => {
-                return res
-            })
     }
 
     async findToken(refreshToken) {
