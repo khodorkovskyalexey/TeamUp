@@ -14,9 +14,9 @@ User.belongsToMany(Project, { through: Teammate, onUpdate: 'CASCADE', onDelete: 
 Project.belongsToMany(User, { through: Teammate, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 
 sequelize
-    //.sync()
+    .sync()
     // ОБНУЛЯЕТ ДАННЫЕ!
-    .sync({ force: true })
+    // .sync({ force: true })
     .then(() => {
         console.log("Tables has been synced")
     })
