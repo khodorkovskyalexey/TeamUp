@@ -20,16 +20,15 @@ class TokenService {
             tokenData.refreshToken = refreshToken;
             return tokenData.save();
         }
-        const token = await Token.create({ userId: user_id, refreshToken })
-        return token
+        return await Token.create({ userId: user_id, refreshToken })
     }
 
     validateAccessToken(token) {
-        
+        return jwt.verify(token, JWT_ACCESS_SECRET)
     }
 
     validateRefreshToken(token) {
-        
+        return jwt.verify(token, JWT_REFRESH_SECRET)
     }
 
     async removeToken(refreshToken) {
@@ -37,7 +36,7 @@ class TokenService {
     }
 
     async findToken(refreshToken) {
-        
+        return await Token.findOne({ where: { refreshToken } })
     }
 }
 

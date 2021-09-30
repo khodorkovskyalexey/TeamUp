@@ -16,8 +16,7 @@ class UserService {
         const hash_password = await bcrypt.hash(password, 10)
         const user = await User.create({ email, name, password: hash_password })
 
-        const res = await generateResponse(user)
-        return res
+        return await generateResponse(user)
     }
 
     async login(email, password) {
@@ -34,8 +33,7 @@ class UserService {
                 }
             })
 
-        const res = await generateResponse(user)
-        return res
+        return await generateResponse(user)
     }
 
     async logout(refreshToken) {
@@ -43,7 +41,17 @@ class UserService {
     }
 
     async refresh(refreshToken) {
-        
+        if (!refreshToken) {
+            throw AuthError.UnauthorizedError()
+        }
+        const userData = TokenService.validateRefreshToken(refreshToken)
+        const tokenFromDb = await TokenService.findToken(refreshToken)
+        if (!userData || !tokenFromDb) {
+            throw AuthError.UnauthorizedError()
+        }
+
+        const user = await User.findByPk(userData.id)
+        return await generateResponse(user)
     }
 }
 
