@@ -1,5 +1,7 @@
 const Koa = require('koa')
 
+const { PORT } = require('./configs/env')
+
 // Middleware
 const cors = require('koa-cors')
 const bodyParser = require('koa-body')()
@@ -11,13 +13,9 @@ const server = new Koa();
 // routes
 const router = require('./routes/index')
 
-const port = process.env.PORT || 8081;
+const port = PORT || 8081;
 server
     // cors
-    .use(cors({
-        credentials: true,
-        origin: process.env.CLIENT_URL
-    }))
     .use(async (ctx, next) => {
         ctx.set('Access-Control-Allow-Origin', '*');
         ctx.set(
@@ -38,6 +36,8 @@ server
 
     // logger
     .use(logger('dev'))
+
+    .use(cors())
 
     .listen(port, () => {
         console.log(`Server listening on port: ${port}`)
