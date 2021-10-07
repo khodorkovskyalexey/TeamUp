@@ -4,9 +4,12 @@ const User = require('./models/User')
 const Resume = require('./models/Resume')
 const Project = require('./models/Project')
 const Teammate = require('./models/Teammate')
+const Token = require('./models/Token')
 
-User.hasMany(Resume, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+User.hasOne(Resume, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 Resume.belongsTo(User, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+User.hasMany(Token, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+Token.belongsTo(User, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 User.belongsToMany(Project, { through: Teammate, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 Project.belongsToMany(User, { through: Teammate, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 
@@ -26,4 +29,5 @@ module.exports = {
     Resume,
     Project,
     Teammate,
+    Token,
 }

@@ -1,5 +1,5 @@
 {
-  "name": "teamfinder",
+  "name": "teamup",
   "version": "1.0.0",
   "description": "Project within project lesson in omgtu",
   "main": "src/index.js",
@@ -7,21 +7,23 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev nodemon src/index.js",
-    "start": "cross-env NODE_ENV=production node src/index.js",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
     "db_sync": "node src/database/db.js"
   },
   "dependencies": {
-    "cross-env": "^7.0.2",
+    "bcrypt": "^5.0.1",
     "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa-cors": "^0.0.16",
     "koa-morgan": "^1.0.1",
+    "koa-req-validation": "^0.15.0",
     "koa-router": "^9.4.0",
-    "mysql": "^2.18.1",
     "mysql2": "^2.3.0",
     "nodemon": "^2.0.4",
-    "sequelize": "^6.3.3"
+    "sequelize": "^6.3.3",
+    "uuid": "^8.3.2"
   }
 }

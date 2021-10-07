@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize')
 const sequelize = require('../sequelize_conf')
 
 const Project = sequelize.define('project', {
-    title: Sequelize.STRING,
+    title: { type: Sequelize.STRING,  allowNull: false },
     logo: Sequelize.STRING,
     description: Sequelize.STRING,
     skills: Sequelize.STRING,
