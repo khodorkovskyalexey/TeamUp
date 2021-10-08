@@ -1,5 +1,3 @@
-const AuthError = require('../exceptions/auth_error')
-
 // https://habr.com/ru/post/307148/ взял отсюда
 module.exports = async (ctx, next) => {
     try {

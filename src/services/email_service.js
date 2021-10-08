@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer')
+const bcrypt = require('bcrypt')
 const fs = require('fs')
 const handlebars = require('handlebars')
+const token_service = require('./token_service')
 
 const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, API_URL } = require('../configs/env')
 
@@ -21,18 +23,22 @@ class EmailService {
         })
     }
 
-    async sendActivationMail(to, link) {
+    async sendActivationMail(email, name, password) {
+        const hash_password = await bcrypt.hash(password, 10)
+        const activate_token = token_service.generateEmailToken({ email, name, hash_password })
+        const link = `${API_URL}/activate/${activate_token}`
+
         await this.transporter.sendMail({
             from: `TeamUp <${SMTP_USER}>`,
-            to,
-            subject: 'Активация аккаунта на ' + API_URL,
+            to: email,
+            subject: `Активация аккаунта на ${API_URL}`,
             text: '',
-            html: getHtml(link)
+            html: getEmailHtml(link)
         })
     }
 }
 
-function getHtml(link) {
+function getEmailHtml(link) {
     const source = fs.readFileSync('public/pages/email_verification.html', 'utf-8').toString()
     const template = handlebars.compile(source)
     const replacements = {

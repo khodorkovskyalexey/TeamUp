@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
-const { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } = require('../configs/env')
-const { JWT_ACCESS_LIFETIME, JWT_REFRESH_LIFETIME } = require('../configs/jwt_config')
+const { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET, JWT_EMAIL_SECRET } = require('../configs/env')
+const { JWT_ACCESS_LIFETIME, JWT_REFRESH_LIFETIME, JWT_EMAIL_LIFETIME } = require('../configs/jwt_config')
 
 const { Token } = require('../database/db')
 
@@ -12,6 +12,10 @@ class TokenService {
             accessToken,
             refreshToken
         }
+    }
+
+    generateEmailToken(payload) {
+        return jwt.sign(payload, JWT_EMAIL_SECRET, { expiresIn: JWT_EMAIL_LIFETIME })
     }
 
     async saveTokens(user_id, refreshToken) {
@@ -29,6 +33,10 @@ class TokenService {
 
     validateRefreshToken(token) {
         return jwt.verify(token, JWT_REFRESH_SECRET)
+    }
+
+    validateEmailToken(token) {
+        return jwt.verify(token, JWT_EMAIL_SECRET)
     }
 
     async removeToken(refreshToken) {
