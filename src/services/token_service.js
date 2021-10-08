@@ -28,15 +28,27 @@ class TokenService {
     }
 
     validateAccessToken(token) {
-        return jwt.verify(token, JWT_ACCESS_SECRET)
+        try {
+            return jwt.verify(token, JWT_ACCESS_SECRET)
+        } catch (e) {
+            return null
+        }
     }
 
     validateRefreshToken(token) {
-        return jwt.verify(token, JWT_REFRESH_SECRET)
+        try {
+            return jwt.verify(token, JWT_REFRESH_SECRET)
+        } catch (e) {
+            return null
+        }
     }
 
     validateEmailToken(token) {
-        return jwt.verify(token, JWT_EMAIL_SECRET)
+        try {
+            return jwt.verify(token, JWT_EMAIL_SECRET)
+        } catch (e) {
+            return null
+        }
     }
 
     async removeToken(refreshToken) {
