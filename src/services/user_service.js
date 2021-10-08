@@ -3,6 +3,7 @@ const { User } = require('../database/db')
 const AuthError = require('../exceptions/auth_error')
 const UserDto = require('../dtos/user_dto')
 const TokenService = require('./token_service')
+const email_service = require('./email_service')
 
 class UserService {
     async registration(email, name, password) {
@@ -15,6 +16,8 @@ class UserService {
 
         const hash_password = await bcrypt.hash(password, 10)
         const user = await User.create({ email, name, password: hash_password })
+
+        await email_service.sendActivationMail(email, "https://github.com/")
 
         return await generateResponse(user)
     }
