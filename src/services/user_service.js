@@ -2,18 +2,27 @@ const bcrypt = require('bcrypt')
 const { User } = require('../database/db')
 const AuthError = require('../exceptions/auth_error')
 const UserDto = require('../dtos/user_dto')
-const TokenService = require('./token_service')
+const token_service = require('./token_service')
 
 class UserService {
-    async registration(email, name, password) {
+    async activate(token) {
+        const tokenData = token_service.validateEmailToken(token)
+        if(!tokenData) {
+            throw AuthError.BadRequest(`Ссылка недействительна!`)
+        }
+
+        const { email, name, hash_password } = tokenData
+
+        /**
+         * Надо вынести в отдельную функцию или мидлвар
+         */
         await User.findOne({ where: { email } })
             .then(candidate => {
                 if(candidate) {
-                    throw AuthError.BadRequest(`Пользователь с почтой ${email} уже существует`)
+                    throw AuthError.BadRequest(`Пользователь уже существует`)
                 }
             })
 
-        const hash_password = await bcrypt.hash(password, 10)
         const user = await User.create({ email, name, password: hash_password })
 
         return await generateResponse(user)
@@ -37,15 +46,15 @@ class UserService {
     }
 
     async logout(refreshToken) {
-        await TokenService.removeToken(refreshToken)
+        await token_service.removeToken(refreshToken)
     }
 
     async refresh(refreshToken) {
         if (!refreshToken) {
             throw AuthError.UnauthorizedError()
         }
-        const userData = TokenService.validateRefreshToken(refreshToken)
-        const tokenFromDb = await TokenService.findToken(refreshToken)
+        const userData = token_service.validateRefreshToken(refreshToken)
+        const tokenFromDb = await token_service.findToken(refreshToken)
         if (!userData || !tokenFromDb) {
             throw AuthError.UnauthorizedError()
         }
@@ -57,8 +66,8 @@ class UserService {
 
 async function generateResponse(user) {
     const userDto = new UserDto(user)
-    const tokens = TokenService.generateTokens({ ...userDto })
-    await TokenService.saveTokens(userDto.id, tokens.refreshToken)
+    const tokens = token_service.generateTokens({ ...userDto })
+    await token_service.saveTokens(userDto.id, tokens.refreshToken)
     return { ...tokens, user: userDto }
 }
 
