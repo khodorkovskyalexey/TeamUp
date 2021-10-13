@@ -44,6 +44,7 @@ function getEmailHtml(link, dev_link) {
     const source = fs.readFileSync('public/pages/email_verification.html', 'utf-8').toString()
     const template = handlebars.compile(source)
     const replacements = {
+        main_page: CLIENT_URL,
         link,
         dev_link,
     }
