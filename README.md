@@ -7,6 +7,8 @@ Default port: 8081
 You need to clone repository:
 [GitLab](https://gitlab.com/terminator5/teamup-backend)
 
+Add filled .env file in root directory (see .env.example file for writing)
+
 In this folder you need to run:
 `npm install`
 or
