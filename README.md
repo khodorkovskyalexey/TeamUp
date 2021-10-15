@@ -170,3 +170,41 @@ status 401
     "errors": []
 }
 ```
+
+#### `PUT /profile`
+Обновляет данные в профиле
+
+Заголовок запроса обязательно должен содержать Authorization с Bearer Token
+
+Все поля необязательные, в теле запроса указывать только те данные, которые нужно изменить
+
+Request
+```json
+{
+    "name": "Ivan",
+    "avatar": "http",
+    "age": 10,
+    "organization": "omgtu",
+    "contacts": [
+        {
+            "contact_name": "vk",
+            "url": "@zver_coda"
+        }
+    ],
+    "resume": {
+        "profession": "Дизайнер",
+        "about_me": "О себе",
+        "skills": ""
+    }
+}
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
