@@ -12,6 +12,7 @@
     "db_sync": "node src/database/db.js"
   },
   "dependencies": {
+    "@koa/multer": "^3.0.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^8.2.0",
     "handlebars": "^4.7.7",

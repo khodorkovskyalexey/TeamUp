@@ -186,7 +186,6 @@ Request
 ```json
 {
     "name": "Ivan",
-    "avatar": "http",
     "age": 10,
     "organization": "omgtu",
     "contacts": [
@@ -198,7 +197,7 @@ Request
     "resume": {
         "profession": "Дизайнер",
         "about_me": "О себе",
-        "skills": ""
+        "skills": "#Скейтбордист"
     }
 }
 ```
@@ -212,3 +211,23 @@ status 401
     "message": "Пользователь не авторизован",
     "errors": []
 }
+```
+
+#### `POST /profile/avatar`
+
+Загрузка аватарки
+
+Заголовок запроса обязательно должен содержать Authorization с Bearer Token
+
+Отправляется картинка, в заголовке запроса указать `Content-Type: multipart/form-data`. Ключ для файла `avatar`
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
