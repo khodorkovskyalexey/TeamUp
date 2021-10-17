@@ -1,4 +1,5 @@
 const { User, Resume, Contact } = require('../database/db')
+const { AVATAR_FOLDER_PATH } = require('../configs/env')
 
 class ProfileService {
     async update_user_data(profileDto, id) {
@@ -17,6 +18,21 @@ class ProfileService {
                     contact.save()
                 } else {
                     Contact.create({ ...contact_data, userId: id })
+                }
+            })
+    }
+
+    async get_avatar(id) {
+        const user_from_db = await User.findByPk(id, { attributes: ['avatar'] })
+        return AVATAR_FOLDER_PATH + '/' + user_from_db.avatar
+    }
+
+    async set_avatar(avatar, id) {
+        await User.findByPk(id)
+            .then(user => {
+                if(user.avatar !== avatar) {
+                    user.avatar = avatar
+                    user.save()
                 }
             })
     }

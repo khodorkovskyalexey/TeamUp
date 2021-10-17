@@ -58,6 +58,11 @@ class TokenService {
     async findToken(refreshToken) {
         return await Token.findOne({ where: { refreshToken } })
     }
+
+    getIdInAccessTokenHeader(access_token_header) {
+        const accessToken = access_token_header.split(' ')[1]
+        return this.validateAccessToken(accessToken).id
+    }
 }
 
 module.exports = new TokenService()
