@@ -38,7 +38,7 @@ server
     // logger
     .use(logger('dev'))
 
-    .use(cors({ credentials: true }))
+    .use(cors({ credentials: 'include' }))
 
     .listen(port, () => {
         console.log(`Server listening on port: ${port}`)
