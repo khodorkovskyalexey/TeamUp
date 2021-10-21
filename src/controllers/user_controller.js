@@ -38,7 +38,8 @@ class UserController {
         //     cookie.get(ctx.request, 'user')
         // ]
 
-        ctx.body = "Salam alleykym"
+        // ctx.body = "Salam alleykym"
+        ctx.redirect('https://sun9-21.userapi.com/impf/trYsV08DCFITIZH7hER5rQ6Svk824PtTIhq-iw/ekeVQ7JsKBQ.jpg?size=440x720&quality=96&sign=070c89e0df1067764eb74fdced459dec&type=album')
 
         // ctx.body = ctx.cookies.get('refreshToken')
     }
