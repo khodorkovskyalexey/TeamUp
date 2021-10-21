@@ -18,14 +18,14 @@ router.post('/login', user_controller.login)
 router.post('/logout', user_controller.logout)
 router.get('/refresh', user_controller.refresh)
 
-.get('/', ctx => {
+.get('/check', ctx => {
     ctx.body = [ 
         cookie.get(ctx.request, 'refreshToken'), 
         cookie.get(ctx.request, 'user')
     ]
     // ctx.body = ctx.cookies.get('refreshToken')
 })
-.post('/', ctx => {
+.post('/check', ctx => {
     cookie.create(ctx.res, 'user', ctx.request.body["user"])
     ctx.status = 200
 })
