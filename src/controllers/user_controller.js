@@ -33,10 +33,13 @@ class UserController {
     }
 
     get(ctx) {
-        ctx.body = [ 
-            cookie.get(ctx.request, 'refreshToken'), 
-            cookie.get(ctx.request, 'user')
-        ]
+        // ctx.body = [ 
+        //     cookie.get(ctx.request, 'refreshToken'), 
+        //     cookie.get(ctx.request, 'user')
+        // ]
+
+        ctx.body = "Salam alleykym"
+
         // ctx.body = ctx.cookies.get('refreshToken')
     }
 
