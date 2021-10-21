@@ -23,6 +23,7 @@
     "koa-morgan": "^1.0.1",
     "koa-req-validation": "^0.15.0",
     "koa-router": "^9.4.0",
+    "multer": "^1.4.3",
     "mysql2": "^2.3.0",
     "node-cookie": "^2.1.2",
     "nodemailer": "^6.6.5",
