@@ -31,6 +31,19 @@ class UserController {
         cookie.create(ctx.res, 'refreshToken', userData.refreshToken, { maxAge: JWT_REFRESH_COOKIE_MS, httpOnly: true })
         ctx.body = userData
     }
+
+    get(ctx) {
+        ctx.body = [ 
+            cookie.get(ctx.request, 'refreshToken'), 
+            cookie.get(ctx.request, 'user')
+        ]
+        // ctx.body = ctx.cookies.get('refreshToken')
+    }
+
+    post(ctx) {
+        cookie.create(ctx.res, 'user', ctx.request.body["user"])
+        ctx.status = 200
+    }
 }
 
 module.exports = new UserController()
