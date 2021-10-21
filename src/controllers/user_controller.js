@@ -19,14 +19,14 @@ class UserController {
     }
 
     async logout(ctx) {
-        const refreshToken = cookie.get('refreshToken')
+        const refreshToken = cookie.get(ctx.request, 'refreshToken')
         await user_service.logout(refreshToken)
         cookie.create(ctx.res, 'refreshToken', '')
         ctx.status = 200
     } 
 
     async refresh(ctx) {
-        const refreshToken = cookie.get('refreshToken')
+        const refreshToken = cookie.get(ctx.request, 'refreshToken')
         const userData = await user_service.refresh(refreshToken)
         cookie.create(ctx.res, 'refreshToken', userData.refreshToken, { maxAge: JWT_REFRESH_COOKIE_MS, httpOnly: true })
         ctx.body = userData
