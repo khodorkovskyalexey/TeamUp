@@ -34,11 +34,12 @@ server
 
     // routes
     .use(router.routes())
+    .use(router.allowedMethods())
 
     // logger
     .use(logger('dev'))
 
-    .use(cors({ credentials: 'include' }))
+    .use(cors({ origin: true, credentials: true }))
 
     .listen(port, () => {
         console.log(`Server listening on port: ${port}`)
