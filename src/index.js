@@ -1,6 +1,6 @@
 const Koa = require('koa')
 
-const { PORT } = require('./configs/env')
+const { PORT, CLIENT_URL } = require('./configs/env')
 
 // Middleware
 const cors = require('koa-cors')
@@ -17,13 +17,13 @@ const port = PORT || 8081;
 server
     // cors
     .use(async (ctx, next) => {
-        ctx.set('Access-Control-Allow-Origin', '*')
+        ctx.set('Access-Control-Allow-Origin', CLIENT_URL)
         ctx.set(
             'Access-Control-Allow-Headers',
             'Origin, X-Requested-With, Content-Type, Accept',
         )
         ctx.set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
-        ctx.set('Access-Control-Allow-Credentials', 'true')
+        ctx.set('Access-Control-Allow-Credentials', true)
         await next();
     })
 
@@ -39,7 +39,7 @@ server
     // logger
     .use(logger('dev'))
 
-    .use(cors({ origin: true, credentials: true }))
+    .use(cors({ credentials: true, origin: CLIENT_URL }))
 
     .listen(port, () => {
         console.log(`Server listening on port: ${port}`)

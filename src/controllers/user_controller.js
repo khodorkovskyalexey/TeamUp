@@ -38,7 +38,7 @@ class UserController {
             cookie.get(ctx.request, 'user')
         ]
 
-        // ctx.redirect('https://sun9-21.userapi.com/impf/trYsV08DCFITIZH7hER5rQ6Svk824PtTIhq-iw/ekeVQ7JsKBQ.jpg?size=440x720&quality=96&sign=070c89e0df1067764eb74fdced459dec&type=album')
+        // ctx.redirect('https://sun9-87.userapi.com/impf/c639728/v639728163/6c2c/eTyC7rSb8bs.jpg?size=1215x2160&quality=96&sign=d45940d06fc3eb1058e5b52f4713b23a&type=album')
 
         // ctx.body = ctx.cookies.get('refreshToken')
     }
