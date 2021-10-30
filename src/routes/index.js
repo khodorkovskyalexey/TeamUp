@@ -1,6 +1,7 @@
 const router = require('koa-router')()
 const cookie = require('node-cookie')
 const { User, Token } = require('../database/db')
+const user_service = require('../services/user_service')
 
 const auth_router = require('./auth_router')
 
