@@ -7,16 +7,6 @@ const auth_router = require('./auth_router')
 
 router
     .use(auth_router.routes())
-    .post('/login', async ctx => {
-        const { email, password } = ctx.request.body
-        const userData = await user_service.login(email, password)
-        console.log(userData.refreshToken);
-        
-        cookie.create(ctx.res, 'user', 'Serega volk')
-        // cookie.create(ctx.res, 'refreshToken', userData.refreshToken, { maxAge: JWT_REFRESH_COOKIE_MS, httpOnly: true })
-        // ctx.cookies.set('refreshToken', userData.refreshToken, { maxAge: JWT_REFRESH_COOKIE_MS, httpOnly: true })
-        ctx.body = userData
-    })
     .get('/users', async ctx => {
         ctx.body = await User.findAll({ include: [Token] })
     })
