@@ -206,7 +206,6 @@ Response (status: 200)
 ```
 OK
 ```
-
 Примеры ошибок:
 
 status 401
