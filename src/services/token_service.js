@@ -18,13 +18,13 @@ class TokenService {
         return jwt.sign(payload, JWT_EMAIL_SECRET, { expiresIn: JWT_EMAIL_LIFETIME })
     }
 
-    async saveTokens(user_id, refreshToken) {
-        const tokenData = await Token.findOne({ userId: user_id })
+    async saveTokens(userId, refreshToken) {
+        const tokenData = await Token.findOne({ where: { userId } })
         if (tokenData) {
             tokenData.refreshToken = refreshToken;
             return tokenData.save();
         }
-        return await Token.create({ userId: user_id, refreshToken })
+        return await Token.create({ userId, refreshToken })
     }
 
     validateAccessToken(token) {
