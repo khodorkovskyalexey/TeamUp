@@ -13,7 +13,7 @@ router.post('/register',
     email_controller.registration
 )
 router.get('/activate/:token', user_controller.activate)
-router.post('/login', user_controller.login)
+// router.post('/login', user_controller.login)
 router.post('/logout', user_controller.logout)
 router.get('/refresh', user_controller.refresh)
 
