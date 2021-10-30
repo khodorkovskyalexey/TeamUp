@@ -25,8 +25,7 @@ class ProfileController {
                 profile_service.update_contact(contact_dto, user_id)
             })
         }
-
-        ctx.body = "Ok"
+        
         ctx.status = 200
     }
 
