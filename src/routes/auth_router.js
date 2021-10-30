@@ -17,7 +17,4 @@ router.post('/login', user_controller.login)
 router.post('/logout', user_controller.logout)
 router.get('/refresh', user_controller.refresh)
 
-.get('/check', user_controller.get)
-.post('/check', user_controller.post)
-
 module.exports = router
