@@ -105,4 +105,4 @@ dist
 
 .idea
 
-public/uploads/*
+public/uploads/*.jpg
