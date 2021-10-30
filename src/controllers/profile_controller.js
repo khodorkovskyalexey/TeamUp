@@ -12,11 +12,11 @@ class ProfileController {
         const user_id = ctx.request.body['user'].id
 
         const profile_dto = new ProfileDto(ctx.request.body)
-        await profile_service.update_user_data(profile_dto, user_id)
-        
+        profile_service.update_user_data(profile_dto, user_id)
+            
         if(ctx.request.body['resume']) {
             const resume_dto = new ResumeDto(ctx.request.body['resume'])
-            await profile_service.update_resume(resume_dto, user_id)
+            profile_service.update_resume(resume_dto, user_id)
         }
 
         if(ctx.request.body['contacts']) {
@@ -26,12 +26,11 @@ class ProfileController {
             })
         }
 
-        ctx.body = 'ok'
+        ctx.body = "Ok"
         ctx.status = 200
     }
 
     async set_avatar(ctx) {
-        // ctx.res.status(200).send('OK')
         if(!ctx.file) {
             throw file_error.IsNotExist('Отправленный аватар не найден')
         }
