@@ -7,6 +7,8 @@ Default port: 8081
 You need to clone repository:
 [GitLab](https://gitlab.com/terminator5/teamup-backend)
 
+Add filled .env file in root directory (see .env.example file for writing)
+
 In this folder you need to run:
 `npm install`
 or
@@ -167,6 +169,84 @@ status 401
 ```json
 {
     "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+### Профиль пользователя
+
+#### `PUT /profile`
+Обновляет данные в профиле
+
+Заголовок запроса обязательно должен содержать Authorization с Bearer Token
+
+Все поля необязательные, в теле запроса указывать только те данные, которые нужно изменить
+
+Request
+```json
+{
+    "name": "Ivan",
+    "age": 10,
+    "organization": "omgtu",
+    "contacts": [
+        {
+            "contact_name": "vk",
+            "url": "@zver_coda"
+        }
+    ],
+    "resume": {
+        "profession": "Дизайнер",
+        "about_me": "О себе",
+        "skills": "#Скейтбордист"
+    }
+}
+```
+
+Response (status: 200)
+```
+OK
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+#### `POST /profile/avatar`
+
+Загрузка аватарки
+
+Заголовок запроса обязательно должен содержать Authorization с Bearer Token
+
+Отправляется картинка, в заголовке запроса указать `Content-Type: multipart/form-data`. Ключ для файла `avatar`
+
+Response (status: 200)
+```
+OK
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 404
+
+```json
+{
+    "message": "Multer Error",
     "errors": []
 }
 ```

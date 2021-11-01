@@ -24,6 +24,7 @@ class UserService {
             })
 
         const user = await User.create({ email, name, password: hash_password })
+        await user.createResume()
 
         return await generateResponse(user)
     }
