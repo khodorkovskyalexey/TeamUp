@@ -9,7 +9,7 @@ const ContactDto = require('../dtos/contact_dto')
 
 class ProfileController {
     async edit(ctx) {
-        const user_id = ctx.request.body['user'].id
+        const user_id = ctx.request.user['id']
 
         const profile_dto = new ProfileDto(ctx.request.body)
         profile_service.update_user_data(profile_dto, user_id)
