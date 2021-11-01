@@ -206,6 +206,7 @@ Response (status: 200)
 ```
 OK
 ```
+
 Примеры ошибок:
 
 status 401
@@ -224,6 +225,11 @@ status 401
 Заголовок запроса обязательно должен содержать Authorization с Bearer Token
 
 Отправляется картинка, в заголовке запроса указать `Content-Type: multipart/form-data`. Ключ для файла `avatar`
+
+Response (status: 200)
+```
+OK
+```
 
 Примеры ошибок:
 

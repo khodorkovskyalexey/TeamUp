@@ -1,7 +1,7 @@
 const auth_error = require('../exceptions/auth_error')
 const token_service = require('../services/token_service')
 
-module.exports = function (ctx, next) {
+module.exports = async function (ctx, next) {
     const authorization_header = ctx.get("Authorization")
     if (!authorization_header) {
         throw auth_error.UnauthorizedError()
@@ -18,5 +18,5 @@ module.exports = function (ctx, next) {
     }
 
     ctx.request.body["user"] = userData
-    next()
+    await next()
 }

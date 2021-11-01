@@ -35,6 +35,8 @@ class ProfileController {
         }
         const id = token_service.getIdInAccessTokenHeader(ctx.get('Authorization'))
         await profile_service.set_avatar(ctx.file.filename, id)
+        
+        ctx.status = 200
     }
 }
 
