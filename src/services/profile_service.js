@@ -28,10 +28,11 @@ class ProfileService {
     }
 
     async set_avatar(avatar, id) {
+        const avatar_path = AVATAR_FOLDER_PATH + '/' + avatar
         await User.findByPk(id)
             .then(user => {
-                if(user.avatar !== avatar) {
-                    user.avatar = avatar
+                if(user.avatar !== avatar_path) {
+                    user.avatar = avatar_path
                     user.save()
                 }
             })
