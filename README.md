@@ -241,3 +241,12 @@ status 401
     "errors": []
 }
 ```
+
+status 404
+
+```json
+{
+    "message": "Multer Error",
+    "errors": []
+}
+```
