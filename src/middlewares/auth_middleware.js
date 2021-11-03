@@ -17,6 +17,6 @@ module.exports = async function (ctx, next) {
         throw auth_error.UnauthorizedError()
     }
 
-    ctx.request.body["user"] = userData
+    ctx.request.user = userData
     await next()
 }
