@@ -4,6 +4,7 @@ const avatar = require('../middlewares/download_avatar_middleware')
 const profile_controller = require('../controllers/profile_controller')
 
 router
+    .get('/profile', auth_middleware, profile_controller.getProfile)
     .put('/profile', auth_middleware, profile_controller.edit)
     .post('/profile/avatar', auth_middleware, avatar, profile_controller.set_avatar)
 
