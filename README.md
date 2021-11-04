@@ -265,13 +265,13 @@ Response
     "name": "God Of The System",
     "age": 100500,
     "organization": "omgtu",
-    "Avatar": null,
-    "Resume": {
+    "avatar": "public/uploads/3.jpg",
+    "resume": {
         "profession": "Программист",
         "about_me": "О себе",
         "skills": "#Системныйлорд"
     },
-    "Contacts": [
+    "contacts": [
         {
             "contact_name": "vk",
             "url": "@syslord814132"
