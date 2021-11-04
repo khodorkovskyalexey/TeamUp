@@ -15,12 +15,11 @@ class ProfileController {
         const profile_dto = new ProfileDto(profile)
         const resume_dto = new ResumeDto(profile.resume)
         
-        var contacts = profile.contacts
         var avatar = profile.avatar
 
         let contact_dto = []
 
-        for (var i = 0; i < contacts.length; i++) {
+        for (var i = 0; i < profile.contacts.length; i++) {
             contact_dto.push(new ContactDto(profile.contacts[i]))
         }
 
