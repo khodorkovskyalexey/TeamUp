@@ -2,6 +2,22 @@ const { User, Resume, Contact } = require('../database/db')
 const { AVATAR_FOLDER_PATH } = require('../configs/env')
 
 class ProfileService {
+    async get_user_data(id) {
+        return await User.findByPk(id, {
+            attributes: ['name', 'avatar', 'age', 'organization'],
+            include: [
+                {
+                    model: Resume,
+                    attributes: ['profession', 'about_me', 'skills'],
+                },
+                {
+                    model: Contact,
+                    attributes: ['contact_name', 'url'],
+                }
+            ]
+        })
+    }
+
     async update_user_data(profileDto, id) {
         await User.update(profileDto, { where: { id } })
     }
