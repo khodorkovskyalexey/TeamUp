@@ -76,7 +76,7 @@ status 400
 
 Подтверждение почты, если токен валидный, то пользователь добавляется в базу данных и может авторизироваться
 
-Resonse
+Response
 ```json
 {
     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5cr4",
@@ -121,7 +121,7 @@ Request
 }
 ```
 
-Resonse
+Response
 ```json
 {
     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5cr4",
@@ -181,7 +181,7 @@ status 400
 #### `GET /refresh`
 Обновить токены
 
-Resonse
+Response
 ```json
 {
     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5cr4",
@@ -238,6 +238,46 @@ Request
 Response (status: 200)
 ```
 OK
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+#### `GET /profile`
+
+Получение информации о пользователе
+
+Заголовок запроса обязательно должен содержать Authorization с Bearer Token
+
+Приходить JSON с информацией о пользователе
+
+Response
+```json
+{
+    "name": "God Of The System",
+    "age": 100500,
+    "organization": "omgtu",
+    "Avatar": null,
+    "Resume": {
+        "profession": "Программист",
+        "about_me": "О себе",
+        "skills": "#Системныйлорд"
+    },
+    "Contacts": [
+        {
+            "contact_name": "vk",
+            "url": "@syslord814132"
+        }
+    ]
+}
 ```
 
 Примеры ошибок:
