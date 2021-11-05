@@ -259,13 +259,15 @@ status 401
 
 Приходит JSON с информацией о пользователе
 
+Аватар лежит в статичной папке, его можно получить по url: Host + Response.avatar (например http://localhost:8081/public/uploads/3.jpg)
+
 Response
 ```json
 {
     "name": "God Of The System",
     "age": 100500,
     "organization": "omgtu",
-    "avatar": "public/uploads/3.jpg",
+    "avatar": "/public/uploads/3.jpg",
     "resume": {
         "profession": "Программист",
         "about_me": "О себе",

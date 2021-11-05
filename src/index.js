@@ -3,10 +3,12 @@ const Koa = require('koa')
 const { PORT, CLIENT_URL } = require('./configs/env')
 
 // Middleware
+const serve = require('koa-static')
+const mount = require("koa-mount")
 const cors = require('koa-cors')
 const bodyParser = require('koa-body')()
 const logger = require('koa-morgan')
-const errorMiddleware = require('./middlewares/error_middleware');
+const errorMiddleware = require('./middlewares/error_middleware')
 
 const server = new Koa();
 
@@ -26,6 +28,8 @@ server
         ctx.set('Access-Control-Allow-Credentials', true)
         await next();
     })
+
+    .use(mount('/public', serve('./public')))
 
     .use(errorMiddleware)
 
