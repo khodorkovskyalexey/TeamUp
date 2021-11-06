@@ -40,7 +40,11 @@ class ProfileController {
         if(ctx.request.body['contacts']) {
             ctx.request.body['contacts'].forEach(elem => {
                 const contact_dto = new ContactDto(elem)
-                profile_service.update_contact(contact_dto, user_id)
+                if(contact_dto.url) {
+                    profile_service.update_contact(contact_dto, user_id)
+                } else {
+                    profile_service.delete_contact(contact_dto, user_id)
+                }
             })
         }
         

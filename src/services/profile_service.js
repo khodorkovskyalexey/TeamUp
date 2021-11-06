@@ -38,10 +38,9 @@ class ProfileService {
             })
     }
 
-    // async get_avatar(id) {
-    //     const user_from_db = await User.findByPk(id, { attributes: ['avatar'] })
-    //     return AVATAR_FOLDER_PATH + '/' + user_from_db.avatar
-    // }
+    async delete_contact(contact_data, userId) {
+        await Contact.destroy({ where: { userId, contact_name: contact_data.contact_name } })
+    }
 
     async set_avatar(avatar, id) {
         const avatar_path = AVATAR_FOLDER_PATH + '/' + avatar
