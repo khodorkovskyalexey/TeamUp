@@ -13,7 +13,10 @@ const errorMiddleware = require('./middlewares/error_middleware')
 const server = new Koa();
 
 // routes
-const router = require('./routes/index')
+const router = require('koa-router')()
+
+const apiRoutes = require('./routes/index')
+router.use('/api', apiRoutes.routes(), apiRoutes.allowedMethods())
 
 const port = PORT || 8081;
 server
@@ -37,8 +40,7 @@ server
     .use(bodyParser)
 
     // routes
-    .use(router.routes())
-    .use(router.allowedMethods())
+    .use(router.routes(), router.allowedMethods())
 
     // logger
     .use(logger('dev'))

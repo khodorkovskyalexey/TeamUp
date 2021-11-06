@@ -5,8 +5,8 @@ const auth_router = require('./auth_router')
 const profile_router = require('./profile_router')
 
 router
-    .use(auth_router.routes())
-    .use(profile_router.routes())
+    .use('/auth', auth_router.routes(), auth_router.allowedMethods())
+    .use('/profile', profile_router.routes(), profile_router.allowedMethods())
 
     // dev routes
     .get('/users', async ctx => {

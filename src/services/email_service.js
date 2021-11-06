@@ -28,7 +28,7 @@ class EmailService {
         const activate_token = token_service.generateEmailToken({ email, name, hash_password })
         const link = `${CLIENT_URL}/activate/${activate_token}`
 
-        const dev_link = `${API_URL}/activate/${activate_token}`
+        const dev_link = `${API_URL}/api/auth/activate/${activate_token}`
 
         await this.transporter.sendMail({
             from: `TeamUp <${SMTP_USER}>`,

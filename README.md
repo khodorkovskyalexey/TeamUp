@@ -23,7 +23,7 @@ or
 
 ### Авторизация/регистрация
 
-#### `POST /register`
+#### `POST /api/auth/register`
 Регистрация
 
 В теле запроса обязательные поля: name, email и password. Почта должа быть указана в корректном формате, пароль должен состоять из 8 и более символов
@@ -72,7 +72,7 @@ status 400
 }
 ```
 
-#### `GET /activate/:token`
+#### `GET /api/auth/activate/:token`
 
 Подтверждение почты, если токен валидный, то пользователь добавляется в базу данных и может авторизироваться
 
@@ -108,7 +108,7 @@ status 400
 }
 ```
 
-#### `POST /login`
+#### `POST /api/auth/login`
 Авторизация
 
 В теле запроса обязательные поля: email и password
@@ -173,12 +173,12 @@ status 400
 }
 ```
 
-#### `POST /logout`
+#### `POST /api/auth/logout`
 Выйти из системы
 
 Запрос пустой. В ответ приходит status 200
 
-#### `GET /refresh`
+#### `GET /api/auth/refresh`
 Обновить токены
 
 Response
@@ -208,7 +208,7 @@ status 401
 
 ### Профиль пользователя
 
-#### `PUT /profile`
+#### `PUT /api/profile`
 Обновляет данные в профиле
 
 Заголовок запроса обязательно должен содержать Authorization с Bearer Token
@@ -253,7 +253,7 @@ status 401
 }
 ```
 
-#### `GET /profile`
+#### `GET /api/profile`
 
 Получение информации о пользователе
 
@@ -295,7 +295,7 @@ status 401
 }
 ```
 
-#### `POST /profile/avatar`
+#### `POST /api/profile/avatar`
 
 Загрузка аватарки
 
