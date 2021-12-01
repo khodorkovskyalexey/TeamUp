@@ -1,4 +1,4 @@
-const { Candidate } = require('../database/db')
+const { Candidate, Member } = require('../database/db')
 
 class CandidateService {
     async findAll(projectId, options = {}) {
@@ -12,30 +12,41 @@ class CandidateService {
     async inviteCandidate(candidate_id, projectId, message = "") {
         await Candidate.findOrCreate({ where: { userId: candidate_id, projectId } })
             .then(([candidate]) => {
-                if(candidate.isUserAccept) {
-                    // принять заявку
-                }
                 candidate.isTeamOwnerAccept = true;
                 candidate.message = message;
-                candidate.save();
+                candidate.save()
+                    .then(updatedCandidate => {
+                        this.checkAccept(updatedCandidate);
+                    })
             });
     }
 
     async askToTeam(candidate_id, projectId, message = "") {
         await Candidate.findOrCreate({ where: { userId: candidate_id, projectId } })
             .then(([candidate]) => {
-                console.log(candidate);
-                if(candidate.isTeamOwnerAccept) {
-                    // принять заявку
-                }
                 candidate.isUserAccept = true;
                 candidate.message = message;
-                candidate.save();
+                candidate.save()
+                    .then(updatedCandidate => {
+                        this.checkAccept(updatedCandidate);
+                    })
             });
     }
 
     async delete(candidate_id, projectId) {
         await Candidate.destroy({ where: { userId: candidate_id, projectId } });
+    }
+
+    async checkAccept(candidate) {
+        if(candidate.isTeamOwnerAccept && candidate.isUserAccept) {
+            await this.candidateToMember(candidate);
+        }
+    }
+
+    async candidateToMember(candidate) {
+        const { userId, projectId, id } = candidate;
+        await Member.create({ userId, projectId });
+        await Candidate.destroy({ where: { id } });
     }
 }
 
