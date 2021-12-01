@@ -6,6 +6,7 @@ const Project = require('./models/Project')
 const Member = require('./models/Member')
 const Token = require('./models/Token')
 const Contact = require('./models/Contact')
+const Candidate = require('./models/Candidate')
 
 User.hasOne(Resume, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 Resume.belongsTo(User, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
@@ -21,6 +22,12 @@ Member.belongsTo(User, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 
 Project.hasMany(Member, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 Member.belongsTo(Project, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+
+User.hasMany(Candidate, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+Candidate.belongsTo(User, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+
+Project.hasMany(Candidate, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+Candidate.belongsTo(Project, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 
 sequelize
     .sync()
@@ -40,4 +47,5 @@ module.exports = {
     Member,
     Token,
     Contact,
+    Candidate,
 }

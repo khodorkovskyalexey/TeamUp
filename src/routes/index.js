@@ -12,7 +12,7 @@ router
 
     // dev routes
     .get('/users', async ctx => {
-        ctx.body = await User.findAll({ include: [Token, Contact, Resume] })
+        ctx.body = await User.findAll({ include: [Token, Contact, Resume, Member] })
     })
     .get('/projects', async ctx => {
         ctx.body = await Project.findAll({ 

@@ -336,3 +336,31 @@ status 404
     "errors": []
 }
 ```
+
+### Проект
+
+#### `POST /api/project`
+
+Создание проекта
+
+Необходимо быть авторизованным. Название проектов одного пользователя не могут повторяться.
+
+Request
+```json
+{
+    "title": "proj_name",
+    "description": "desc",
+    "looking_for": "seygeys",
+    "slogan": "devis",
+    "contacts": "911"
+}
+```
+
+Response
+```json
+
+```
+
+#### `GET /api/project/:project_id`
+#### `PUT /api/project/:project_id`
+#### `DEL /api/project/:project_id`
