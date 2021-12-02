@@ -10,27 +10,11 @@ class CandidateService {
     }
 
     async inviteCandidate(candidate_id, projectId, message = "") {
-        await Candidate.findOrCreate({ where: { userId: candidate_id, projectId } })
-            .then(([candidate]) => {
-                candidate.isTeamOwnerAccept = true;
-                candidate.message = message;
-                candidate.save()
-                    .then(updatedCandidate => {
-                        this.checkAccept(updatedCandidate);
-                    })
-            });
+        return await this.addCandidate('isTeamOwnerAccept', candidate_id, projectId, message);
     }
 
     async askToTeam(candidate_id, projectId, message = "") {
-        await Candidate.findOrCreate({ where: { userId: candidate_id, projectId } })
-            .then(([candidate]) => {
-                candidate.isUserAccept = true;
-                candidate.message = message;
-                candidate.save()
-                    .then(updatedCandidate => {
-                        this.checkAccept(updatedCandidate);
-                    })
-            });
+        return await this.addCandidate('isUserAccept', candidate_id, projectId, message);
     }
 
     async delete(candidate_id, projectId) {
@@ -38,15 +22,30 @@ class CandidateService {
     }
 
     async checkAccept(candidate) {
+        const result = {
+            accepted: false,
+            isTeamOwnerAccept: candidate.isTeamOwnerAccept,
+            isUserAccept: candidate.isUserAccept
+        }
         if(candidate.isTeamOwnerAccept && candidate.isUserAccept) {
             await this.candidateToMember(candidate);
+            result.accepted = true;
         }
+        return result;
     }
 
     async candidateToMember(candidate) {
         const { userId, projectId, id } = candidate;
         await Member.create({ userId, projectId });
         await Candidate.destroy({ where: { id } });
+    }
+
+    async addCandidate(acceptField, candidate_id, projectId, message = "") {
+        const [candidate] = await Candidate.findOrCreate({ where: { userId: candidate_id, projectId } });
+        candidate[acceptField] = true;
+        candidate.message = message;
+        const updatedCandidate = await candidate.save();
+        return await this.checkAccept(updatedCandidate);
     }
 }
 

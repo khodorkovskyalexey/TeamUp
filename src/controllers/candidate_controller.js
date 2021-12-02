@@ -6,15 +6,13 @@ class CandidateController {
         const user_id = ctx.request.user?.id;
         const { message } = ctx.request.body;
 
-        await candidate_service.askToTeam(user_id, project_id, message);
-        ctx.body = "Ok";
+        ctx.body = await candidate_service.askToTeam(user_id, project_id, message);
     }
     async inviteCandidate(ctx) {
         const { project_id, user_id } = ctx.params;
         const { message } = ctx.request.body;
         
-        await candidate_service.inviteCandidate(user_id, project_id, message);
-        ctx.body = "Ok";
+        ctx.body = await candidate_service.inviteCandidate(user_id, project_id, message);
     }
 
     async getOneCandidate(ctx) {
