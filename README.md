@@ -343,8 +343,6 @@ status 404
 
 Создание проекта
 
-Необходимо быть авторизованным. Название проектов одного пользователя не могут повторяться.
-
 Request
 ```json
 {
@@ -358,9 +356,328 @@ Request
 
 Response
 ```json
+{
+    "id": 35,
+    "title": "proj_name",
+    "description": "desc",
+    "looking_for": "seygeys",
+    "slogan": "devis",
+    "contacts": "911",
+    "updatedAt": "2021-12-01T20:08:17.660Z",
+    "createdAt": "2021-12-01T20:08:17.660Z"
+}
+```
 
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
 ```
 
 #### `GET /api/project/:project_id`
+
+Получение проекта по его id.
+
+`User` - пользователь, который сделал запрос (он может быть как участником проекта, так и простым искателем приключений). `isOwner` - является ли он владельцем проекта (тимлидом), `isMember` - является ли он участником проекта (если он владелец, то оба поля `true`)
+
+Response
+```json
+{
+    "title": "proj_name",
+    "description": "desc",
+    "looking_for": "seygeys",
+    "slogan": "devis",
+    "contacts": "911",
+    "member": [
+        {
+            "role": "Работяга",
+            "isOwner": true,
+            "user": {
+                "name": "Andrey Vasilev",
+                "avatar": null,
+                "id": 1
+            }
+        }
+    ],
+    "user": {
+        "isOwner": true,
+        "isMember": true,
+        "email": "vasilev_mail@gmail.com",
+        "id": 1,
+        "name": "Andrey Vasilev",
+        "iat": 1638389272,
+        "exp": 1638390172
+    }
+}
+```
+
 #### `PUT /api/project/:project_id`
+
+Request
+```json
+{
+    "title": "Хорошее название для проекта",
+    "description": "Описание",
+    "looking_for": "gayorgies",
+    "slogan": "devis",
+    "contacts": "911"
+}
+```
+
+Response
+```json
+{
+    "title": "Хорошее название для проекта",
+    "description": "Описание",
+    "looking_for": "gayorgies",
+    "slogan": "devis",
+    "contacts": "911"
+}
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 403
+
+```json
+{
+    "message": "Пользователь не является создателем проекта",
+    "errors": []
+}
+```
+
 #### `DEL /api/project/:project_id`
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 403
+
+```json
+{
+    "message": "Пользователь не является создателем проекта",
+    "errors": []
+}
+```
+
+#### `GET /api/project/:project_id/candidate`
+
+Получение списка всех кандидатов. Запрос может делать только создатель проекта.
+
+Response
+```json
+[
+    {
+        "id": 7,
+        "isTeamOwnerAccept": true,
+        "isUserAccept": false,
+        "message": "Присоединяйся к нам!",
+        "createdAt": "2021-12-02T07:17:58.000Z",
+        "updatedAt": "2021-12-02T07:18:43.000Z",
+        "userId": 1,
+        "projectId": 37
+    }
+]
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 403
+
+```json
+{
+    "message": "Пользователь не является создателем проекта",
+    "errors": []
+}
+```
+
+#### `GET /api/project/:project_id/candidate/:user_id`
+
+Получение кандидата в проект по id. Запрос может делать только создатель проекта.
+
+Response
+```json
+{
+    "id": 7,
+    "isTeamOwnerAccept": true,
+    "isUserAccept": false,
+    "message": "Присоединяйся к нам!",
+    "createdAt": "2021-12-02T07:17:58.000Z",
+    "updatedAt": "2021-12-02T07:18:43.000Z",
+    "userId": 1,
+    "projectId": 37
+}
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 403
+
+```json
+{
+    "message": "Пользователь не является создателем проекта",
+    "errors": []
+}
+```
+
+#### `POST /api/project/:project_id/candidate`
+
+Запрос ОТ ПОЛЬЗОВАТЕЛЯ на вступление в команду. Или запрос, чтобы принять приглашение в проект.
+
+Request
+```json
+{
+    "message": "Уважаемые программисты, возьмите меня в вашу команду, пожалуйста"
+}
+```
+
+Response
+```json
+{
+    "accepted": false,
+    "isTeamOwnerAccept": false,
+    "isUserAccept": true
+}
+```
+
+Response (в случае принятия заявки)
+```json
+{
+    "accepted": true,
+    "isTeamOwnerAccept": true,
+    "isUserAccept": true
+}
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 400
+
+```json
+{
+    "message": "Пользователь уже является участником команды",
+    "errors": []
+}
+```
+
+#### `POST /api/project/:project_id/candidate/:user_id`
+
+Приглашение пользователя в команду ОТ СОЗДАТЕЛЯ ПРОЕКТА. Или запрос, чтобы принять заявку пользователя. 
+
+Request
+```json
+{
+    "message": "Дорогой друг, приглашаю тебя в наш проект, будем вместе программировать и зарабатывать"
+}
+```
+
+Response
+```json
+{
+    "accepted": false,
+    "isTeamOwnerAccept": true,
+    "isUserAccept": false
+}
+```
+
+Response (в случае принятия заявки)
+```json
+{
+    "accepted": true,
+    "isTeamOwnerAccept": true,
+    "isUserAccept": true
+}
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 403
+
+```json
+{
+    "message": "Пользователь не является создателем проекта",
+    "errors": []
+}
+```
+
+#### `DEL /api/project/:project_id/candidate/:user_id`
+
+Отменить заявку в проект.
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 403
+
+```json
+{
+    "message": "Пользователь не является создателем проекта",
+    "errors": []
+}
+```
