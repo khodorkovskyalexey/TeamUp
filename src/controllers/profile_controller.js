@@ -1,5 +1,6 @@
 const profile_service = require('../services/profile_service')
 const token_service = require('../services/token_service')
+const candidate_service = require('../services/candidate_service')
 
 const file_error = require('../exceptions/file_error')
 
@@ -23,7 +24,9 @@ class ProfileController {
             contact_dto.push(new ContactDto(profile.contacts[i]))
         }
 
-        ctx.body = { ...profile_dto, avatar: avatar, resume: resume_dto, contacts: contact_dto }
+        const candidates = await candidate_service.findAllProjects(user_id);
+
+        ctx.body = { ...profile_dto, avatar: avatar, resume: resume_dto, contacts: contact_dto, candidates }
     }
 
     async edit(ctx) {
