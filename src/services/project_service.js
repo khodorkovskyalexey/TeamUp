@@ -18,7 +18,7 @@ class ProjectService {
             throw DatabaseError.BadRequest(`Project with id=${id} not found`);
         }
 
-        const member = await project.getMembers({
+        const members = await project.getMembers({
             attributes: ['role', 'isOwner'],
             include: {
                 model: User,
@@ -27,7 +27,7 @@ class ProjectService {
         });
 
         const project_dto = new ProjectDto(project);
-        return { ...project_dto, member };
+        return { ...project_dto, members };
     }
 
     async checkMember(userId, projectId) {

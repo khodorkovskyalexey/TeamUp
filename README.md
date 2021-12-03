@@ -393,7 +393,7 @@ Response
     "looking_for": "seygeys",
     "slogan": "devis",
     "contacts": "911",
-    "member": [
+    "members": [
         {
             "role": "Работяга",
             "isOwner": true,
@@ -490,14 +490,22 @@ Response
 ```json
 [
     {
-        "id": 7,
+        "id": 9,
         "isTeamOwnerAccept": true,
         "isUserAccept": false,
         "message": "Присоединяйся к нам!",
-        "createdAt": "2021-12-02T07:17:58.000Z",
-        "updatedAt": "2021-12-02T07:18:43.000Z",
-        "userId": 1,
-        "projectId": 37
+        "createdAt": "2021-12-03T08:37:42.000Z",
+        "updatedAt": "2021-12-03T08:37:42.000Z",
+        "userId": 2,
+        "projectId": 39,
+        "user": {
+            "id": 2,
+            "avatar": null,
+            "name": "Ivan",
+            "resume": {
+                "profession": "Готов к любой работе"
+            }
+        }
     }
 ]
 ```
@@ -529,14 +537,22 @@ status 403
 Response
 ```json
 {
-    "id": 7,
+    "id": 9,
     "isTeamOwnerAccept": true,
     "isUserAccept": false,
     "message": "Присоединяйся к нам!",
-    "createdAt": "2021-12-02T07:17:58.000Z",
-    "updatedAt": "2021-12-02T07:18:43.000Z",
-    "userId": 1,
-    "projectId": 37
+    "createdAt": "2021-12-03T08:37:42.000Z",
+    "updatedAt": "2021-12-03T08:37:42.000Z",
+    "userId": 2,
+    "projectId": 39,
+    "user": {
+        "id": 2,
+        "avatar": null,
+        "name": "Ivan",
+        "resume": {
+            "profession": "Готов к любой работе"
+        }
+    }
 }
 ```
 

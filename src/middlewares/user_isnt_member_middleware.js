@@ -1,5 +1,4 @@
 const { Member } = require('../database/db');
-const AuthError = require('../exceptions/auth_error');
 const DatabaseError = require('../exceptions/db_queries');
 
 module.exports = async (ctx, next) => {
