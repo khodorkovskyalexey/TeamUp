@@ -413,18 +413,20 @@ status 401
 Response
 ```json
 {
-    "title": "proj_name",
-    "description": "desc",
-    "looking_for": "seygeys",
-    "slogan": "devis",
-    "contacts": "911",
+    "info": {
+        "title": "Хорошее название для проекта",
+        "description": "desc",
+        "looking_for": "seygeys",
+        "slogan": "devis",
+        "contacts": "911"
+    },
     "members": [
         {
             "role": "Работяга",
             "isOwner": true,
             "user": {
-                "name": "Andrey Vasilev",
-                "avatar": null,
+                "name": "Nikita Peshkov",
+                "avatar": "/public/uploads/1.jpg",
                 "id": 1
             }
         }
@@ -432,11 +434,12 @@ Response
     "user": {
         "isOwner": true,
         "isMember": true,
-        "email": "vasilev_mail@gmail.com",
+        "email": "aezz120813@gmail.com",
         "id": 1,
-        "name": "Andrey Vasilev",
-        "iat": 1638389272,
-        "exp": 1638390172
+        "name": "Nikita Peshkov",
+        "avatar": "/public/uploads/1.jpg",
+        "iat": 1638554161,
+        "exp": 1638555061
     }
 }
 ```
