@@ -393,7 +393,7 @@ Response
     "looking_for": "seygeys",
     "slogan": "devis",
     "contacts": "911",
-    "member": [
+    "members": [
         {
             "role": "Работяга",
             "isOwner": true,
