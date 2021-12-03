@@ -17,12 +17,12 @@ class CandidateController {
 
     async getOneCandidate(ctx) {
         const { project_id, user_id } = ctx.params;
-        ctx.body = await candidate_service.findById(user_id, project_id);
+        ctx.body = await candidate_service.findCandidateByUserId(user_id, project_id);
     }
 
     async getAllCandidates(ctx) {
         const { project_id } = ctx.params;
-        ctx.body = await candidate_service.findAll(project_id);
+        ctx.body = await candidate_service.findAllCandidates(project_id);
     }
 
     async delete(ctx) {
