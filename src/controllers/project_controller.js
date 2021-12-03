@@ -11,7 +11,10 @@ class ProjectController {
         const actual_user = await project_service.checkMember(user_id, project_id);
         const user = { ...actual_user, ...ctx.request.user }
 
-        ctx.body = { info: project, user };
+        const { members } = project;
+        project.members = undefined;
+
+        ctx.body = { info: project, members, user };
     }
 
     async create(ctx) {

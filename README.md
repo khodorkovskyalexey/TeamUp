@@ -418,25 +418,25 @@ Response
         "description": "desc",
         "looking_for": "seygeys",
         "slogan": "devis",
-        "contacts": "911",
-        "members": [
-            {
-                "role": "Работяга",
-                "isOwner": true,
-                "user": {
-                    "name": "Programmer Ignat",
-                    "avatar": "/public/uploads/1.jpg",
-                    "id": 1
-                }
-            }
-        ]
+        "contacts": "911"
     },
+    "members": [
+        {
+            "role": "Работяга",
+            "isOwner": true,
+            "user": {
+                "name": "Nikita Peshkov",
+                "avatar": "/public/uploads/1.jpg",
+                "id": 1
+            }
+        }
+    ],
     "user": {
         "isOwner": true,
         "isMember": true,
-        "email": "email@gmail.com",
+        "email": "aezz120813@gmail.com",
         "id": 1,
-        "name": "Valera like a boss",
+        "name": "Nikita Peshkov",
         "avatar": "/public/uploads/1.jpg",
         "iat": 1638554161,
         "exp": 1638555061
