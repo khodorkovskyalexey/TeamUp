@@ -11,7 +11,7 @@ class ProjectController {
         const actual_user = await project_service.checkMember(user_id, project_id);
         const user = { ...actual_user, ...ctx.request.user }
 
-        ctx.body = { ...project, user };
+        ctx.body = { info: project, user };
     }
 
     async create(ctx) {
