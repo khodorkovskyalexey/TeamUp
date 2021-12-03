@@ -1,12 +1,27 @@
-const { Candidate, Member } = require('../database/db')
+const { Candidate, Member, User, Resume } = require('../database/db');
+const UserDto = require('../dtos/user_dto');
 
 class CandidateService {
     async findAll(projectId, options = {}) {
-        return await Candidate.findAll({ ...options, where: { projectId } })
+        return await Candidate.findAll({ ...options, where: { projectId }, include: {
+            model: User,
+            attributes: ['id', 'avatar', 'name'],
+            include: {
+                model: Resume,
+                attributes: ['profession']
+            }
+        } });
     }
 
     async findById(userId, projectId, options = {}) {
-        return await Candidate.findOne({ ...options, where: { projectId, userId } })
+        return await Candidate.findOne({ ...options, where: { projectId, userId }, include: {
+            model: User,
+            attributes: ['id', 'avatar', 'name'],
+            include: {
+                model: Resume,
+                attributes: ['profession']
+            }
+        } });
     }
 
     async inviteCandidate(candidate_id, projectId, message = "") {
