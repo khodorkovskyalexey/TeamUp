@@ -85,7 +85,8 @@ Response
     "user": {
         "email": "zver_coda@mail.ru",
         "id": 1,
-        "name": "Master of coding"
+        "name": "Master of coding",
+        "avatar": "/public/uploads/1.jpg"
     }
 }
 ```
@@ -130,7 +131,8 @@ Response
     "user": {
         "email": "zver_coda@mail.ru",
         "id": 1,
-        "name": "Master of coding"
+        "name": "Master of coding",
+        "avatar": "/public/uploads/1.jpg"
     }
 }
 ```
@@ -190,7 +192,8 @@ Response
     "user": {
         "email": "zver_coda@mail.ru",
         "id": 1,
-        "name": "Master of coding"
+        "name": "Master of coding",
+        "avatar": "/public/uploads/1.jpg"
     }
 }
 ```
@@ -279,6 +282,28 @@ Response
         {
             "contact_name": "vk",
             "url": "@syslord814132"
+        }
+    ],
+    "candidates": [
+        {
+            "id": 9,
+            "isTeamOwnerAccept": true,
+            "isUserAccept": false,
+            "message": "Присоединяйся к нам!",
+            "createdAt": "2021-12-03T08:37:42.000Z",
+            "updatedAt": "2021-12-03T08:37:42.000Z",
+            "userId": 2,
+            "projectId": 39,
+            "project": {
+                "id": 39,
+                "title": "Хорошее название для проекта",
+                "description": "desc",
+                "looking_for": "seygeys",
+                "slogan": "devis",
+                "contacts": "911",
+                "createdAt": "2021-12-03T08:18:15.000Z",
+                "updatedAt": "2021-12-03T08:18:15.000Z"
+            }
         }
     ]
 }
