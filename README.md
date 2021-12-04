@@ -725,3 +725,131 @@ status 403
     "errors": []
 }
 ```
+
+#### `GET /api/project/:project_id/member`
+
+Получить инфу о всех участниках проекта
+
+Response
+```json
+[
+    {
+        "id": 15,
+        "role": "Работяга",
+        "isOwner": true,
+        "createdAt": "2021-11-28T19:14:13.000Z",
+        "updatedAt": "2021-11-28T19:14:13.000Z",
+        "userId": 1,
+        "projectId": 15,
+        "user": {
+            "name": "Илюха Властелин Колец",
+            "avatar": "/public/uploads/1.jpg",
+            "id": 1
+        }
+    },
+    {
+        "id": 36,
+        "role": "Работяга",
+        "isOwner": false,
+        "createdAt": "2021-12-01T20:02:37.000Z",
+        "updatedAt": "2021-12-01T20:02:37.000Z",
+        "userId": 2,
+        "projectId": 15,
+        "user": {
+            "name": "Avatar Aang",
+            "avatar": null,
+            "id": 2
+        }
+    }
+]
+```
+
+#### `GET /api/project/:project_id/member/:user_id`
+
+Получить инфу о участнике проекта по его id (id в таблице users, а не members)
+
+Response
+```json
+{
+    "id": 36,
+    "role": "Работяга",
+    "isOwner": false,
+    "createdAt": "2021-12-01T20:02:37.000Z",
+    "updatedAt": "2021-12-01T20:02:37.000Z",
+    "userId": 2,
+    "projectId": 15,
+    "user": {
+        "name": "Avatar Aang",
+        "avatar": null,
+        "id": 2
+    }
+}
+```
+
+#### `PUT /api/project/:project_id/member/:user_id`
+
+Обновить роль участника проекта (может только сам участник или создатель проекта)
+
+Request
+```json
+{
+    "role": "Трудяга"
+}
+```
+
+Response
+```json
+{
+    "id": 36,
+    "role": "Трудяга",
+    "isOwner": false,
+    "createdAt": "2021-12-01T20:02:37.000Z",
+    "updatedAt": "2021-12-04T08:59:05.000Z",
+    "userId": 2,
+    "projectId": 15
+}
+```
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 403
+
+```json
+{
+    "message": "Пользователь не имеет доступа к редактированию этих данных",
+    "errors": []
+}
+```
+
+#### `DEL /api/project/:project_id/candidate/:user_id`
+
+Удаляет участника из команды
+
+Примеры ошибок:
+
+status 401
+
+```json
+{
+    "message": "Пользователь не авторизован",
+    "errors": []
+}
+```
+
+status 403
+
+```json
+{
+    "message": "Пользователь не имеет доступа к редактированию этих данных",
+    "errors": []
+}
+```
