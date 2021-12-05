@@ -830,7 +830,7 @@ status 403
 }
 ```
 
-#### `DEL /api/project/:project_id/candidate/:user_id`
+#### `DEL /api/project/:project_id/member/:user_id`
 
 Удаляет участника из команды
 
