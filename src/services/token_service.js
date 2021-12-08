@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
-const { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } = require('../configs/env')
-const { JWT_ACCESS_LIFETIME, JWT_REFRESH_LIFETIME } = require('../configs/jwt_config')
+const { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET, JWT_EMAIL_SECRET } = require('../configs/env')
+const { JWT_ACCESS_LIFETIME, JWT_REFRESH_LIFETIME, JWT_EMAIL_LIFETIME } = require('../configs/jwt_config')
 
 const { Token } = require('../database/db')
 
@@ -14,21 +14,41 @@ class TokenService {
         }
     }
 
-    async saveTokens(user_id, refreshToken) {
-        const tokenData = await Token.findOne({ userId: user_id })
+    generateEmailToken(payload) {
+        return jwt.sign(payload, JWT_EMAIL_SECRET, { expiresIn: JWT_EMAIL_LIFETIME })
+    }
+
+    async saveTokens(userId, refreshToken) {
+        const tokenData = await Token.findOne({ where: { userId } })
         if (tokenData) {
             tokenData.refreshToken = refreshToken;
             return tokenData.save();
         }
-        return await Token.create({ userId: user_id, refreshToken })
+        return await Token.create({ userId, refreshToken })
     }
 
     validateAccessToken(token) {
-        return jwt.verify(token, JWT_ACCESS_SECRET)
+        try {
+            return jwt.verify(token, JWT_ACCESS_SECRET)
+        } catch (e) {
+            return null
+        }
     }
 
     validateRefreshToken(token) {
-        return jwt.verify(token, JWT_REFRESH_SECRET)
+        try {
+            return jwt.verify(token, JWT_REFRESH_SECRET)
+        } catch (e) {
+            return null
+        }
+    }
+
+    validateEmailToken(token) {
+        try {
+            return jwt.verify(token, JWT_EMAIL_SECRET)
+        } catch (e) {
+            return null
+        }
     }
 
     async removeToken(refreshToken) {
@@ -37,6 +57,11 @@ class TokenService {
 
     async findToken(refreshToken) {
         return await Token.findOne({ where: { refreshToken } })
+    }
+
+    getIdInAccessTokenHeader(access_token_header) {
+        const accessToken = access_token_header.split(' ')[1]
+        return this.validateAccessToken(accessToken).id
     }
 }
 

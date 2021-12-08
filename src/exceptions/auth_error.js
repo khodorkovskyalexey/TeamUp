@@ -15,4 +15,8 @@ module.exports = class AuthError extends Error {
     static BadRequest(message, errors = []) {
         return new AuthError(400, message, errors);
     }
+
+    static ForbiddenError(message = 'Нет доступа') {
+        return new AuthError(403, message)
+    }
 }

@@ -6,6 +6,8 @@ const User = sequelize.define('user', {
     email: { type: Sequelize.STRING,  allowNull: false },
     password: { type: Sequelize.STRING,  allowNull: false },
     avatar: Sequelize.STRING,
+    age: Sequelize.INTEGER,
+    organization: { type: Sequelize.STRING }
 })
 
 module.exports = User
