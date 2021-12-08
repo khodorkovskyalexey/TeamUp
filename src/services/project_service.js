@@ -1,5 +1,6 @@
 const { User, Project, Member } = require('../database/db')
-const ProjectDto = require('../dtos/project_dto')
+const ProjectDto = require('../dtos/project_dto');
+const ProjectInProfileDto = require('../dtos/project_in_profile_dto');
 const DatabaseError = require('../exceptions/db_queries')
 
 class ProjectService {
@@ -10,6 +11,20 @@ class ProjectService {
         await member.setProject(created_project);
 
         return created_project;
+    }
+
+    async getUserProjects(userId) {
+        const projects_data = await Member.findAll({ where: { userId }, attributes: ['role', 'isOwner'], include: {
+            model: Project,
+            attributes: ['id', 'title', 'slogan']
+        } });
+
+        const projectsInProfileDto = projects_data.map(project => new ProjectInProfileDto(project));
+        await Promise.all(
+            projectsInProfileDto.map(async project_json => project_json.owner = await getOwnerName(project_json.project.id))
+        );
+
+        return projectsInProfileDto;
     }
 
     async getById(id) {
@@ -54,6 +69,15 @@ class ProjectService {
     async delete(project_id) {
         return await Project.destroy({ where: { id: project_id } });
     }
+}
+
+async function getOwnerName(projectId) {
+    const owner_json = await Member.findOne({ where: { projectId, isOwner: true }, attributes: [],
+        include: {
+            model: User,
+            attributes: ['name'],
+        } });
+    return owner_json.user;
 }
 
 module.exports = new ProjectService()
