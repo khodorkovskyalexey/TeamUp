@@ -12,35 +12,4 @@ router
     .use('/project', project_router.routes(), project_router.allowedMethods())
     .use('/users', user_router.routes(), user_router.allowedMethods())
 
-    // dev routes
-    .get('/devusers', async ctx => {
-        ctx.body = await User.findAll({ include: [Token, Contact, Resume, Member] })
-    })
-    .get('/devprojects', async ctx => {
-        ctx.body = await Project.findAll({ 
-            include: {
-                model: Member,
-                attributes: ['role', 'isOwner'],
-                include: {
-                    model: User,
-                    attributes: ['name']
-                }
-            } 
-        })
-    })
-    .get('/devmembers', async ctx => {
-        ctx.body = await Member.findAll({
-            include: [
-                {
-                    model: User,
-                    attributes: ['name']
-                },
-                {
-                    model: Project,
-                    attributes: ['title', 'slogan']
-                }
-            ]
-        })
-    })
-
 module.exports = router

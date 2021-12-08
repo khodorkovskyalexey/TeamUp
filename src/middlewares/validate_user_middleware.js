@@ -4,7 +4,6 @@ module.exports = async function (ctx, next) {
     try {
         await auth_middleware(ctx, next);
     } catch (error) {
-        console.log('Не авторизирован');
         await next();
     }
 }

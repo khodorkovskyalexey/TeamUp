@@ -43,7 +43,7 @@ server
     .use(router.routes(), router.allowedMethods())
 
     // logger
-    .use(logger('dev'))
+    .use(logger('short'))
 
     .use(cors({ credentials: true, origin: CLIENT_URL }))
 
