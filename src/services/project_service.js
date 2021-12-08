@@ -1,9 +1,21 @@
 const { User, Project, Member } = require('../database/db')
 const ProjectDto = require('../dtos/project_dto');
 const ProjectInProfileDto = require('../dtos/project_in_profile_dto');
-const DatabaseError = require('../exceptions/db_queries')
+const SearchedProjectDto = require('../dtos/searched_project_dto');
+const member_service = require('./member_service');
 
 class ProjectService {
+    async findAll() {
+        const projects = await Project.findAll({ attributes: ['id', 'title', 'slogan', 'looking_for'] });
+
+        const projects_dto = projects.map(project => new SearchedProjectDto(project))
+        await Promise.all(projects_dto.map(
+            async project => project.owner = await member_service.getOwnerByProjectId(project.id, { attributes: ['id', 'name'] })
+        ));
+
+        return projects_dto;
+    }
+
     async create(user_id, project_dto) {
         const user = await User.findByPk(user_id);
         const member = await user.createMember({ isOwner: true });

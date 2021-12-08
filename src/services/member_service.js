@@ -23,6 +23,11 @@ class MemberService {
     async delete(userId, projectId) {
         await Member.destroy({ where: { userId, projectId } });
     }
+
+    async getOwnerByProjectId(projectId, options = {}) {
+        const owner = await Member.findOne({ where: { projectId, isOwner: true }, attributes: ['userId'] });
+        return await User.findOne({ where: { id: owner.userId }, ...options });
+    }
 }
 
 module.exports = new MemberService();

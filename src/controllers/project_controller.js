@@ -3,6 +3,10 @@ const project_service = require('../services/project_service')
 const ProjectDto = require('../dtos/project_dto')
 
 class ProjectController {
+    async getAll(ctx) {
+        ctx.body = await project_service.findAll();
+    }
+
     async getOwnProjects(ctx) {
         const user_id = ctx.request.user['id'];
 

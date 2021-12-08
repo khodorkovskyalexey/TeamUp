@@ -382,6 +382,36 @@ status 404
 
 ### Проект
 
+#### `GET /api/project`
+
+Получить всех проектов (для поиска)
+
+Response
+```json
+[
+    {
+        "id": 15,
+        "title": "proj_name",
+        "slogan": "devis",
+        "looking_for": "seygeys",
+        "owner": {
+            "id": 1,
+            "name": "Fan of St1m"
+        }
+    },
+    {
+        "id": 24,
+        "title": "Shop",
+        "slogan": "GoTo Shop",
+        "looking_for": "Дизайнер",
+        "owner": {
+            "id": 5,
+            "name": "Restorator"
+        }
+    }
+]
+```
+
 #### `POST /api/project`
 
 Создание проекта
