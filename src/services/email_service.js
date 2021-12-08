@@ -28,25 +28,22 @@ class EmailService {
         const activate_token = token_service.generateEmailToken({ email, name, hash_password })
         const link = `${CLIENT_URL}/activate/${activate_token}`
 
-        const dev_link = `${API_URL}/api/auth/activate/${activate_token}`
-
         await this.transporter.sendMail({
             from: `TeamUp <${SMTP_USER}>`,
             to: email,
             subject: `Активация аккаунта на ${API_URL}`,
             text: '',
-            html: getEmailHtml(link, dev_link)
+            html: getEmailHtml(link)
         })
     }
 }
 
-function getEmailHtml(link, dev_link) {
+function getEmailHtml(link) {
     const source = fs.readFileSync('public/pages/email_verification.html', 'utf-8').toString()
     const template = handlebars.compile(source)
     const replacements = {
         main_page: CLIENT_URL,
-        link,
-        dev_link,
+        link
     }
     return template(replacements)
 }
