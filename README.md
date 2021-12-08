@@ -258,7 +258,7 @@ status 401
 
 #### `GET /api/profile`
 
-Получение информации о пользователе
+Получение информации об авторизованном пользователе
 
 Заголовок запроса обязательно должен содержать Authorization с Bearer Token
 
@@ -309,14 +309,32 @@ Response
 }
 ```
 
-Примеры ошибок:
+#### `GET /api/profile/:user_id`
 
-status 401
+Получение информации о пользователе по его id
 
+Приходит JSON с информацией о пользователе
+
+Аватар лежит в статичной папке, его можно получить по url: Host + Response.avatar (например http://localhost:8081/public/uploads/3.jpg)
+
+Response
 ```json
 {
-    "message": "Пользователь не авторизован",
-    "errors": []
+    "name": "God Of The System",
+    "age": 100500,
+    "organization": "omgtu",
+    "avatar": "/public/uploads/3.jpg",
+    "resume": {
+        "profession": "Программист",
+        "about_me": "О себе",
+        "skills": "#Системныйлорд"
+    },
+    "contacts": [
+        {
+            "contact_name": "vk",
+            "url": "@syslord814132"
+        }
+    ]
 }
 ```
 
