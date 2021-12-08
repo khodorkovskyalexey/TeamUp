@@ -9,24 +9,17 @@ const ResumeDto = require('../dtos/resume_dto')
 const ContactDto = require('../dtos/contact_dto')
 
 class ProfileController {
-    async getProfile(ctx) {
-        const user_id = ctx.request.user['id']
-
-        const profile = await profile_service.get_user_data(user_id)
-        const profile_dto = new ProfileDto(profile)
-        const resume_dto = new ResumeDto(profile.resume)
-        
-        var avatar = profile.avatar
-
-        let contact_dto = []
-
-        for (var i = 0; i < profile.contacts.length; i++) {
-            contact_dto.push(new ContactDto(profile.contacts[i]))
-        }
-
+    async getOwnProfile(ctx) {
+        const user_id = ctx.request.user['id'];
+        const profile_data = await findProfile(user_id);
         const candidates = await candidate_service.findAllProjects(user_id);
 
-        ctx.body = { ...profile_dto, avatar: avatar, resume: resume_dto, contacts: contact_dto, candidates }
+        ctx.body = { ...profile_data, candidates }
+    }
+
+    async getProfileById(ctx) {
+        const user_id = ctx.params['user_id'];
+        ctx.body = await findProfile(user_id);
     }
 
     async edit(ctx) {
@@ -65,6 +58,16 @@ class ProfileController {
         
         ctx.status = 200
     }
+}
+
+async function findProfile(user_id) {
+    const profile = await profile_service.get_user_data(user_id);
+    const profile_dto = new ProfileDto(profile);
+    const resume_dto = new ResumeDto(profile.resume);
+
+    const contact_dto = profile.contacts.map(contact => new ContactDto(contact));
+
+    return { ...profile_dto, avatar: profile.avatar, resume: resume_dto, contacts: contact_dto };
 }
 
 module.exports = new ProfileController()
