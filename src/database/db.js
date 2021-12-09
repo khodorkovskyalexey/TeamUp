@@ -31,8 +31,6 @@ Candidate.belongsTo(Project, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
 
 sequelize
     .sync()
-    // ОБНУЛЯЕТ ДАННЫЕ!
-    // .sync({ force: true })
     .then(() => {
         console.log("Tables has been synced")
     })
