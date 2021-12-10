@@ -2,6 +2,8 @@
 
 Default port: 8081
 
+Node version: v14.17.6
+
 ## How to start?
 
 You need to clone repository:
