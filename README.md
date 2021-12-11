@@ -8,6 +8,8 @@ Node version: v14.17.6
 
 You need to clone repository:
 [GitLab](https://gitlab.com/terminator5/teamup-backend)
+or
+[GitHub](https://github.com/khodorkovskyalexey/TeamUp)
 
 Add filled .env file in root directory (see .env.example file for writing)
 
